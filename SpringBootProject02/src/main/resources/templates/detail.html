@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th='http://www.thymeleaf.org'>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style type="text/css">
+.container {
+  margin-top: 50px;
+}
+
+.row {
+  margin: 0px auto;
+  width: 1200px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+		<table class="table">
+		  <tr>
+		  <td width="30%" rowspan="6"><img th:src="'http://www.menupan.com'+${detail.poster}"></td>
+		  <td colspan="2"><h4 style="display: inline-block;" th:text="${detail.name}"></h4><small style="color: orange" th:text="${detail.score}"></small></td>
+		  </tr>
+		  <tr>
+		  <th width="20%">업종</th>
+		  <td width="50%" th:text="${detail.type}"></td>
+		  </tr>
+		  <tr>
+		  <th width="20%">전화</th>
+		  <td width="50%" th:text="${detail.phone}"></td>
+		  </tr>
+		  <tr>
+		  <th width="20%">주소</th>
+		  <td width="50%" th:text="${detail.address}"></td>
+		  </tr>
+		  <tr>
+		  <th width="20%">테마</th>
+		  <td width="50%" th:text="${detail.theme}"></td>
+		  </tr>
+		  <tr>
+		  <th width="20%">주차</th>
+		  <td width="50%" th:text="${detail.parking}"></td>
+		  </tr>
+		  <tr>
+		  <td colspan="3" th:text="${detail.content}"></td>
+		  </tr>
+		</table>
+		</div>
+	</div>
+</body>
+</html>
