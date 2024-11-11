@@ -32,4 +32,12 @@ public interface RecipeService {
 	public List<RecipeVO> recipeRelateList(int no);
 	public List<RecipeVO> meterialRelateList(int mno);
 	public void recipeScoreUpdate(int no);
+	public void meterialScoreUpdate(int mno);
+	
+	public void mSave(MeterialEntity e);
+	public void rSave(RecipeEntity e);
+	
+	public void recipeLikeUpdate(int no);
+	public void meterialLikeUpdate(int mno);
+	
 }

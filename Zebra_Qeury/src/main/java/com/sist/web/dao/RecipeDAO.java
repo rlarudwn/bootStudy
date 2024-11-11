@@ -64,4 +64,9 @@ public interface RecipeDAO extends JpaRepository<RecipeEntity, Integer>{
 	@Modifying
 	@Query(value = "UPDATE recipe SET score=(SELECT IFNULL(AVG(rating), 0.0) FROM review WHERE no = :no) WHERE no=:no", nativeQuery = true)
 	public void recipeScoreUpdate(@Param("no")int no);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE recipe SET likecount=(SELECT COUNT(*) FROM recipe_like WHERE no = :no) WHERE no=:no", nativeQuery = true)
+	public void recipeLikeUpdate(@Param("no")int no);
 }

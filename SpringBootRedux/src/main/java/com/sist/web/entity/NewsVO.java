@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class NewsVO {
-	private String title, desc, link;
+	private String title,desc, link;
 }

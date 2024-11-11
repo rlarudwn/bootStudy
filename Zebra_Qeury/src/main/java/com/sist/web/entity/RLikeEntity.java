@@ -4,10 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-@Entity(name="food_like")
+@Entity(name = "recipe_like")
 @Data
-public class LikeEntity {
+public class RLikeEntity {
 	@Id
 	private int lno;
-	private String id, fno;
+	private int no;
+	private String id;
 }

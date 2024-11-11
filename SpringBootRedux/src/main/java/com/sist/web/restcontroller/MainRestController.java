@@ -10,16 +10,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.web.dao.FoodHouseDAO;
 import com.sist.web.dao.RecipeDAO;
 import com.sist.web.entity.FoodHouseVO;
+import com.sist.web.entity.NewsVO;
 import com.sist.web.entity.RecipeEntity;
+import com.sist.web.manager.NaverNewsManager;
 
 @RestController
 @CrossOrigin(origins = "*")
 public class MainRestController {
+	@Autowired
+	private NaverNewsManager m;
 	@Autowired
 	FoodHouseDAO fDao;
 	@Autowired
@@ -45,6 +50,19 @@ public class MainRestController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	
+	@GetMapping("/news/{fd}")
+	public ResponseEntity<Map> newsReact(@PathVariable("fd")String fd){
+		Map map=new HashMap();
+		try {
+			List<NewsVO> list=m.newsFind(fd);
+			map.put("list", list);
+			return new ResponseEntity<>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
 	}
 	
 	

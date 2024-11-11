@@ -116,4 +116,29 @@ public class RecipeServiceImpl implements RecipeService{
 	public void recipeScoreUpdate(int no) {
 		rDao.recipeScoreUpdate(no);
 	}
+	
+	@Override
+	public void meterialScoreUpdate(int mno) {
+		mDao.meterialScoreUpdate(mno);
+	}
+
+	@Override
+	public void mSave(MeterialEntity e) {
+		mDao.save(e);
+	}
+
+	@Override
+	public void rSave(RecipeEntity e) {
+		rDao.save(e);
+	}
+	
+	@Override
+	public void recipeLikeUpdate(int no) {
+		rDao.recipeLikeUpdate(no);
+	}
+	
+	@Override
+	public void meterialLikeUpdate(int mno) {
+		mDao.meterialLikeUpdate(mno);
+	}
 }

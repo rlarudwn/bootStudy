@@ -10,4 +10,5 @@ public class MeterialEntity {
 	private int mno;
 	private int hit, likecount;
 	private String name, content, poster, season, temp, kcal, prep, storage, cook, checklist, matchs;
+	private double score;
 }

@@ -3,15 +3,15 @@ package com.sist.web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sist.web.dao.LikeDAO;
-import com.sist.web.entity.LikeEntity;
+import com.sist.web.dao.RLikeDAO;
+import com.sist.web.entity.RLikeEntity;
 @Service
-public class LikeServiceImpl implements LikeService{
+public class RLikeServiceImpl implements RLikeService{
 	@Autowired
-	private LikeDAO dao;
+	private RLikeDAO dao;
 	
 	@Override
-	public void save(LikeEntity e) {
+	public void save(RLikeEntity e) {
 		dao.save(e);
 	}
 	@Override
@@ -19,16 +19,16 @@ public class LikeServiceImpl implements LikeService{
 		dao.deleteById(lno);
 	}
 	@Override
-	public LikeEntity findById(int lno) {
-		return dao.findById(lno).get();
+	public RLikeEntity findById(int no) {
+		return dao.findById(no).get();
 	}
 	@Override
-	public int isLike(String fno, String id) {
-		return dao.isLike(fno, id);
+	public int isLike(int no, String id) {
+		return dao.isLike(no, id);
 	}
 	@Override
-	public void deleteLike(String fno, String id) {
-		dao.deleteLike(fno, id);
+	public void deleteLike(int no, String id) {
+		dao.deleteLike(no, id);
 	}
 	@Override
 	public int count() {

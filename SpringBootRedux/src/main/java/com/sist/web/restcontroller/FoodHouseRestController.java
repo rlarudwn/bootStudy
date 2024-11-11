@@ -47,6 +47,8 @@ public class FoodHouseRestController {
 	@GetMapping("/food/find/{page}/{address}")
 	public ResponseEntity<Map> foodFind(@PathVariable("page") int page, @PathVariable("address") String address){
 		Map map=new HashMap();
+		if(address.equals("*"))
+			address="";
 		try {
 			int start=(page-1)*12;
 			List<FoodHouseVO> list=dao.foodFindList(address, start);

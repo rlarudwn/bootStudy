@@ -20,11 +20,17 @@ import com.sist.web.service.*;
 @CrossOrigin(origins = "*")
 public class RecipeRestController {
 	@Autowired
+	private RLikeService rlService;
+	@Autowired
+	private MLikeService mlService;
+	@Autowired
 	private RecipeService rService;
 	@Autowired
 	private ReviewService reService;
 	@Autowired
 	private NewsSearchManager m;
+	@Autowired
+	private CommentService cService;
 	@GetMapping("/recipe/home")
 	public ResponseEntity<Map> recipeHome() {
 		Map map = new HashMap();
@@ -141,7 +147,6 @@ public class RecipeRestController {
 			map.put("count", count);
 			return new ResponseEntity<>(map, HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
@@ -200,6 +205,8 @@ public class RecipeRestController {
 					iList.add(st.nextToken());
 				}
 			}
+			int isLike=rlService.isLike(no, id);
+			map.put("isLike", isLike);
 			map.put("detail", e);
 			map.put("posters", poster);
 			map.put("iList", iList);
@@ -215,17 +222,38 @@ public class RecipeRestController {
 		}
 	}
 	
-	@GetMapping("/recipe/meterialDetail/{mno}")
-	public ResponseEntity<Map> recipeMeterialDetail(@PathVariable("mno")int mno){
+	@GetMapping("/recipe/meterialDetail/{mno}/{id}")
+	public ResponseEntity<Map> recipeMeterialDetail(@PathVariable("mno")int mno, @PathVariable("id")String id){
 		Map map=new HashMap();
 		try {
 			MeterialEntity e=rService.findById(mno);
 			List<RecipeVO> rList=rService.meterialRelateList(mno);
+			int count=cService.commentCount(mno);
+			int commentCount=cService.myCommentCount(mno, id);
+			List<CommentEntity> cList=cService.commentListData(mno);
+			int isLike=mlService.isLike(mno, id);
 			map.put("detail", e);
+			map.put("isLike", isLike);
 			map.put("rList", rList);
+			map.put("count", count);
+			map.put("commentCount", commentCount);
+			map.put("commentList", cList);
 			return new ResponseEntity<>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@GetMapping("/meterial/hitIncrement/{mno}")
+	public void meterialHitIncrement(@PathVariable("mno") int mno) {
+		MeterialEntity e= rService.findById(mno);
+		e.setHit(e.getHit()+1);
+		rService.mSave(e);
+	}
+	@GetMapping("/recipe/hitIncrement/{no}")
+	public void recipeHitIncrement(@PathVariable("no") int no) {
+		RecipeEntity e= rService.findByNo(no);
+		e.setHit(e.getHit()+1);
+		rService.rSave(e);
 	}
 }
